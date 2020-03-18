@@ -1,10 +1,10 @@
 class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
 
-    private var player1Points: Int = 0
-    private var player2Points: Int = 0
+    private var player1Points = 0
+    private var player2Points = 0
 
     override fun wonPoint(playerName: String) {
-        if (playerName === "player1")
+        if (playerName === player1Name)
             player1Points += 1
         else
             player2Points += 1
@@ -21,10 +21,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
     private fun getAdvantageScore(): String {
         val minusResult = player1Points - player2Points
         return when {
-            minusResult == 1 -> "Advantage player1"
-            minusResult == -1 -> "Advantage player2"
-            minusResult >= 2 -> "Win for player1"
-            else -> "Win for player2"
+            minusResult == 1 -> "Advantage $player1Name"
+            minusResult == -1 -> "Advantage $player2Name"
+            minusResult >= 2 -> "Win for $player1Name"
+            else -> "Win for $player2Name"
         }
     }
 
