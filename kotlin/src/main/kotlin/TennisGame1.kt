@@ -1,5 +1,8 @@
 class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
 
+    //TODO pick from where we are left off Enum, avoid duplications, extract some methods into classes
+    //this should be commit are not
+
     private var player1Points = 0
     private var player2Points = 0
 
