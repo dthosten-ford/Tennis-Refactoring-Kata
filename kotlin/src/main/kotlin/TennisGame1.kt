@@ -1,3 +1,5 @@
+import PlayerScore.*
+
 class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
 
     //TODO pick from where we are left off Enum, avoid duplications, extract some methods into classes
@@ -33,16 +35,16 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
 
     private fun getMatchScore(): String {
         var tempPoints: Int
-        var score = ""
+        var score : String= ""
         for (index in 1..2) {
             val pair = determinePlayerForPoints(index, score)
             score = pair.first
             tempPoints = pair.second
             when (tempPoints) {
-                0 -> score += "Love"
-                1 -> score += "Fifteen"
-                2 -> score += "Thirty"
-                3 -> score += "Forty"
+                LOVE.points -> score += LOVE.score
+                FIFTEEN.points -> score += FIFTEEN.score
+                THIRTY.points -> score += THIRTY.score
+                FORTY.points -> score += FORTY.score
             }
         }
         return score
@@ -62,4 +64,10 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
                 2 -> "Thirty-All"
                 else -> "Deuce"
             }
+}
+enum class PlayerScore( val points : Int, val score : String){
+    LOVE (0,"Love"),
+    FIFTEEN(1, "Fifteen"),
+    THIRTY(2, "Thirty"),
+    FORTY(3, "Forty")
 }
