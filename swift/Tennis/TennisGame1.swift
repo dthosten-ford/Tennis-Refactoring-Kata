@@ -1,83 +1,111 @@
 import Foundation
 
-class TennisGame1: TennisGame {
-    private let player1: String
-    private let player2: String
-    private var score1: Int
-    private var score2: Int
-    
-    required init(player1: String, player2: String) {
+
+class Player {
+    let name: String
+    var scorePoint: Int = 0
+
+    init(name: String) {
+        self.name = name
+    }
+
+    func increasePoints() {
+        scorePoint+=1
+    }
+}
+
+class Players {
+    let player1: Player
+    let player2: Player
+
+    init(player1: Player,
+         player2: Player) {
         self.player1 = player1
         self.player2 = player2
-        self.score1 = 0
-        self.score2 = 0
+    }
+    
+    func calculateScorePoint(_ playerName: String) {
+        getPlayer(playerName).increasePoints()
+    }
+
+    func getPlayer(_ playerName: String)-> Player{
+        return (playerName == player1.name) ? player1 : player2
+    }
+    
+    func getLeadingPlayerName() -> String {
+        return player1.scorePoint > player2.scorePoint ? player1.name : player2.name
+    }
+}
+
+class ScoreSystem {
+    fileprivate func scoreName(_ tempScore: Int) -> String {
+        switch tempScore {
+        case 0:
+            return "Love"
+
+        case 1:
+            return "Fifteen"
+
+        case 2:
+            return "Thirty"
+
+        case 3:
+            return "Forty"
+
+        default:
+            return ""
+        }
+    }
+    
+    fileprivate func showTieMessage(currentScorePoint: Int) -> String {
+        return currentScorePoint>2
+            ? "Deuce"
+            : scoreName(currentScorePoint) + "-All"
+    }
+    
+    fileprivate func showStandardMessage(players: Players) -> String {
+        return scoreName(players.player1.scorePoint) + "-" + scoreName(players.player2.scorePoint)
+    }
+}
+
+class TennisGame1: TennisGame {
+    private let players: Players
+    private let scoreSystem: ScoreSystem
+
+    required init(player1: String,
+                  player2: String) {
+        players = Players(player1: Player(name: player1),
+                          player2: Player(name: player2))
+        self.scoreSystem = ScoreSystem()
+    }
+
+    var score: String? {
+        if isTie() {
+            return scoreSystem.showTieMessage(currentScorePoint: players.player1.scorePoint)
+        } else if isWinning() {
+            return showWinningMessage()
+        }
+        return scoreSystem.showStandardMessage(players: players)
     }
 
     func wonPoint(_ playerName: String) {
-        if playerName == "player1" {
-            score1 += 1
-        } else {
-            score2 += 1
-        }
+        players.calculateScorePoint(playerName)
     }
-    
-    var score: String? {
-        var score = ""
-        var tempScore = 0
-        if score1 == score2
-        {
-            switch score1
-            {
-            case 0:
-                score = "Love-All"
 
-            case 1:
-                score = "Fifteen-All"
-
-            case 2:
-                score = "Thirty-All"
-
-            default:
-                score = "Deuce"
-                
-            }
-        }
-        else if score1>=4 || score2>=4
-        {
-            let minusResult = score1-score2
-            if minusResult==1 { score = "Advantage player1" }
-            else if minusResult  == -1 { score = "Advantage player2" }
-            else if minusResult>=2 { score = "Win for player1" }
-            else { score = "Win for player2" }
-        }
-        else
-        {
-            for i in 1..<3
-            {
-                if i==1 { tempScore = score1 }
-                else { score = "\(score)-"; tempScore = score2 }
-                switch tempScore
-                {
-                case 0:
-                    score = "\(score)Love"
-
-                case 1:
-                    score = "\(score)Fifteen"
-
-                case 2:
-                    score = "\(score)Thirty"
-
-                case 3:
-                    score = "\(score)Forty"
-
-                default:
-                    break
-
-                }
-            }
-        }
-        return score
+    private func showWinningMessage() -> String {
+        return abs(scoreDifferential()) == 1 ? "Advantage \(players.getLeadingPlayerName())" : "Win for \(players.getLeadingPlayerName())"
     }
-    
-    
+
+    private func scoreDifferential() -> Int {
+        return players.player1.scorePoint-players.player2.scorePoint
+    }
+
+    fileprivate func isWinning() -> Bool {
+        return players.player1.scorePoint>=4 || players.player2.scorePoint>=4
+    }
+
+    fileprivate func isTie() -> Bool {
+        return players.player1.scorePoint == players.player2.scorePoint
+    }
 }
+
