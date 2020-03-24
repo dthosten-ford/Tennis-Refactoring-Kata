@@ -1,9 +1,10 @@
+//TODO pick from where we are left off Enum, avoid duplications, extract some methods into classes
+
 class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
 
-    //TODO pick from where we are left off Enum, avoid duplications, extract some methods into classes
     //this should be commit are not
-
     private var player1Points = 0
+
     private var player2Points = 0
 
     override fun wonPoint(playerName: String) {
@@ -31,38 +32,24 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         }
     }
 
-    private fun getMatchScore(): String {
-        var score : String= ""
-        for (index in 1..2) {
-            val pair = determinePlayerForPoints(index, score)
-            score = pair.first
-            score += getScoreForPoints(pair.second)
-        }
-        return score
-    }
+    private fun getMatchScore(): String = getScoreForPoints(player1Points) + "-" + getScoreForPoints(player2Points)
 
-    private fun getScoreForPoints(points: Int): String {
-       return enumValues<PlayerScore>()[points].score
-    }
-
-    private fun determinePlayerForPoints(index: Int, score: String): Pair<String, Int> = when (index) {
-        1 -> Pair(score, player1Points)
-        else -> Pair("$score-", player2Points)
-    }
+    private fun getScoreForPoints(points: Int): String = enumValues<PlayerScore>()[points].score
 
     private fun isTie() = player1Points == player2Points
 
-    private fun getTieScore(): String =
-            when (player1Points) {
-                0 -> "Love-All"
-                1 -> "Fifteen-All"
-                2 -> "Thirty-All"
-                else -> "Deuce"
-            }
+    private fun getTieScore(): String {
+        return if (player1Points <= 2) {
+            "${getScoreForPoints(player1Points)}-All"
+        } else {
+            "Deuce"
+        }
+    }
 }
-enum class PlayerScore( val points : Int, val score : String){
-    LOVE (0,"Love"),
-    FIFTEEN(1, "Fifteen"),
-    THIRTY(2, "Thirty"),
-    FORTY(3, "Forty")
+
+enum class PlayerScore(val score: String){
+    LOVE("Love"),
+    FIFTEEN("Fifteen"),
+    THIRTY("Thirty"),
+    FORTY("Forty")
 }
