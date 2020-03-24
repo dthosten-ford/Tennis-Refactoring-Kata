@@ -57,14 +57,30 @@ class ScoreSystem {
         }
     }
     
+    fileprivate func showStandardMessage(players: Players) -> String {
+        return scoreName(players.player1.scorePoint) + "-" + scoreName(players.player2.scorePoint)
+    }
+    
+    fileprivate func isWinning(players: Players) -> Bool {
+        return players.player1.scorePoint>=4 || players.player2.scorePoint>=4
+    }
+    
+    fileprivate func showWinningMessage(players: Players) -> String {
+        return abs(scoreDifferential(players: players)) == 1 ? "Advantage \(players.getLeadingPlayerName())" : "Win for \(players.getLeadingPlayerName())"
+    }
+    
+    fileprivate func isTie(players: Players) -> Bool {
+           return players.player1.scorePoint == players.player2.scorePoint
+    }
+    
     fileprivate func showTieMessage(currentScorePoint: Int) -> String {
         return currentScorePoint>2
             ? "Deuce"
             : scoreName(currentScorePoint) + "-All"
     }
     
-    fileprivate func showStandardMessage(players: Players) -> String {
-        return scoreName(players.player1.scorePoint) + "-" + scoreName(players.player2.scorePoint)
+    private func scoreDifferential(players: Players) -> Int {
+        return players.player1.scorePoint-players.player2.scorePoint
     }
 }
 
@@ -80,32 +96,16 @@ class TennisGame1: TennisGame {
     }
 
     var score: String? {
-        if isTie() {
+        if scoreSystem.isTie(players: players) {
             return scoreSystem.showTieMessage(currentScorePoint: players.player1.scorePoint)
-        } else if isWinning() {
-            return showWinningMessage()
+        } else if scoreSystem.isWinning(players: players) {
+            return scoreSystem.showWinningMessage(players: players)
         }
         return scoreSystem.showStandardMessage(players: players)
     }
 
     func wonPoint(_ playerName: String) {
         players.calculateScorePoint(playerName)
-    }
-
-    private func showWinningMessage() -> String {
-        return abs(scoreDifferential()) == 1 ? "Advantage \(players.getLeadingPlayerName())" : "Win for \(players.getLeadingPlayerName())"
-    }
-
-    private func scoreDifferential() -> Int {
-        return players.player1.scorePoint-players.player2.scorePoint
-    }
-
-    fileprivate func isWinning() -> Bool {
-        return players.player1.scorePoint>=4 || players.player2.scorePoint>=4
-    }
-
-    fileprivate func isTie() -> Bool {
-        return players.player1.scorePoint == players.player2.scorePoint
     }
 }
 
