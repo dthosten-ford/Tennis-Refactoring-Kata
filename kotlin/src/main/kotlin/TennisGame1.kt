@@ -1,18 +1,22 @@
+import kotlin.math.abs
+
 //TODO pick from where we are left off Enum, avoid duplications, extract some methods into classes
 
-class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
+class TennisGame1(player1Name: String, player2Name: String) : TennisGame {
 
     // this should be commit are not
-    private var player1Points = 0
-    private var player2Points = 0
-    //private var player1 = Player("Liza")
-    //private var player2 = Player("Bhaskar")
+    private var player1 = Player(player1Name)
+    private var player2 = Player(player2Name)
 
     override fun wonPoint(playerName: String) {
-        if (playerName === player1Name)
-            player1Points += 1
-        else
-            player2Points += 1
+        val player = getPlayer(playerName)
+        player.points +=1
+    }
+
+    private fun getPlayer( playerName : String):Player{
+        if(playerName == player1.name)
+            return player1
+        return player2
     }
 
     override fun getScore(): String = when {
@@ -21,27 +25,32 @@ class TennisGame1(private val player1Name: String, private val player2Name: Stri
         else -> getMatchScore()
     }
 
-    private fun isAdvantage() = player1Points >= 4 || player2Points >= 4
+    private fun isAdvantage() = player1.points >= 4 || player2.points >= 4
 
     private fun getAdvantageScore(): String {
-        val minusResult = player1Points - player2Points
-        return when {
-            minusResult == 1 -> "Advantage $player1Name"
-            minusResult == -1 -> "Advantage $player2Name"
-            minusResult >= 2 -> "Win for $player1Name"
-            else -> "Win for $player2Name"
-        }
+        val scoreDifferential =abs( player1.points - player2.points)
+        val winningPlayer = findWinningPlayer()
+        if(scoreDifferential==1)
+            return "Advantage " + winningPlayer.name
+        return "Win for " + winningPlayer.name
     }
 
-    private fun getMatchScore(): String = getScoreForPoints(player1Points) + "-" + getScoreForPoints(player2Points)
+    private fun findWinningPlayer(): Player {
+        if(player1.points > player2.points)
+            return player1
+        return player2
+
+    }
+
+    private fun getMatchScore(): String = getScoreForPoints(player1.points) + "-" + getScoreForPoints(player2.points)
 
     private fun getScoreForPoints(points: Int): String = enumValues<PlayerScore>()[points].score
 
-    private fun isTie() = player1Points == player2Points
+    private fun isTie() = player1.points == player2.points
 
     private fun getTieScore(): String {
-        return if (player1Points <= 2) {
-            "${getScoreForPoints(player1Points)}-All"
+        return if (player1.points <= 2) {
+            "${getScoreForPoints(player1.points)}-All"
         } else {
             "Deuce"
         }
