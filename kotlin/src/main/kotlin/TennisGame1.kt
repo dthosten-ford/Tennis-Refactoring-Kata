@@ -2,10 +2,11 @@
 
 class TennisGame1(private val player1Name: String, private val player2Name: String) : TennisGame {
 
-    //this should be commit are not
+    // this should be commit are not
     private var player1Points = 0
-
     private var player2Points = 0
+    //private var player1 = Player("Liza")
+    //private var player2 = Player("Bhaskar")
 
     override fun wonPoint(playerName: String) {
         if (playerName === player1Name)
@@ -53,3 +54,5 @@ enum class PlayerScore(val score: String){
     THIRTY("Thirty"),
     FORTY("Forty")
 }
+
+data class Player(val name: String, var points: Int  = 0)
