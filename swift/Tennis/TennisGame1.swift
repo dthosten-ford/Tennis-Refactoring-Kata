@@ -12,7 +12,7 @@ class TennisGame1: TennisGame {
         self.score1 = 0
         self.score2 = 0
     }
-
+    
     func wonPoint(_ playerName: String) {
         if playerName == player1 {
             score1 += 1
@@ -30,71 +30,63 @@ class TennisGame1: TennisGame {
     fileprivate func calculateScore() -> String {
         var tempScore = 0
         var score = ""
-        for i in 1..<3
-        {
-            if i==1 { tempScore = score1 }
-            else { score = "\(score)-"; tempScore = score2 }
-            switch tempScore
-            {
-            case 0:
-                score = "\(score)Love"
-                
-            case 1:
-                score = "\(score)Fifteen"
-                
-            case 2:
-                score = "\(score)Thirty"
-                
-            case 3:
-                score = "\(score)Forty"
-                
-            default:
-                break
-                
+        for i in 1..<3 {
+            if i==1 {
+                tempScore = score1
             }
+            else {
+                score = "\(score)-"; tempScore = score2
+            }
+            score = "\(score)\(scoreRepresentator(tempScore))"
         }
         return score
     }
     
-    fileprivate func calculateTiedScore() -> String {
-        switch score1
-        {
+    fileprivate func scoreRepresentator(_ score: Int) -> String {
+        
+        switch score {
         case 0:
-            return "Love-All"
-            
+            return "Love"
         case 1:
-            return "Fifteen-All"
-            
+            return "Fifteen"
         case 2:
-            return "Thirty-All"
-            
+            return "Thirty"
+        case 3:
+            return "Forty"
         default:
+            return ""
+        }
+    }
+    
+    fileprivate func calculateTiedScore( _ score: Int) -> String {
+        guard score < 3 else {
             return "Deuce"
         }
+        
+        return scoreRepresentator(score) + "-All"
     }
     
     fileprivate func calculateAdvantageorWin() -> String {
         let minusResult = score1-score2
-        if minusResult==1 { return "Advantage player1" }
-        else if minusResult  == -1 { return "Advantage player2" }
-        else if minusResult>=2 { return "Win for player1" }
-        else { return "Win for player2" }
+        if minusResult==1 {
+            return "Advantage player1"
+        } else if minusResult  == -1 {
+            return "Advantage player2"
+        } else if minusResult>=2 {
+            return "Win for player1"
+        }
+        return "Win for player2"
     }
     
     var score: String? {
-        if scoreIsTied
-        {
-            return calculateTiedScore()
+        if scoreIsTied {
+            return calculateTiedScore(score1)
         }
-        else if playerIsEligibleToWin(score1: score1, score2: score2)
-        {
+        else if playerIsEligibleToWin(score1: score1, score2: score2) {
             return calculateAdvantageorWin()
         }
-        else
-        {
+        else {
             return calculateScore()
         }
     }
-    
-    
 }
