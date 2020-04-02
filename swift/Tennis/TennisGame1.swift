@@ -27,62 +27,73 @@ class TennisGame1: TennisGame {
         return score1>=4 || score2>=4
     }
     
-    var score: String? {
-        var score = ""
+    fileprivate func calculateScore() -> String {
         var tempScore = 0
-        if scoreIsTied
+        var score = ""
+        for i in 1..<3
         {
-            switch score1
+            if i==1 { tempScore = score1 }
+            else { score = "\(score)-"; tempScore = score2 }
+            switch tempScore
             {
             case 0:
-                score = "Love-All"
-
+                score = "\(score)Love"
+                
             case 1:
-                score = "Fifteen-All"
-
+                score = "\(score)Fifteen"
+                
             case 2:
-                score = "Thirty-All"
-
+                score = "\(score)Thirty"
+                
+            case 3:
+                score = "\(score)Forty"
+                
             default:
-                score = "Deuce"
+                break
                 
             }
         }
+        return score
+    }
+    
+    fileprivate func calculateTiedScore() -> String {
+        switch score1
+        {
+        case 0:
+            return "Love-All"
+            
+        case 1:
+            return "Fifteen-All"
+            
+        case 2:
+            return "Thirty-All"
+            
+        default:
+            return "Deuce"
+        }
+    }
+    
+    fileprivate func calculateAdvantageorWin() -> String {
+        let minusResult = score1-score2
+        if minusResult==1 { return "Advantage player1" }
+        else if minusResult  == -1 { return "Advantage player2" }
+        else if minusResult>=2 { return "Win for player1" }
+        else { return "Win for player2" }
+    }
+    
+    var score: String? {
+        if scoreIsTied
+        {
+            return calculateTiedScore()
+        }
         else if playerIsEligibleToWin(score1: score1, score2: score2)
         {
-            let minusResult = score1-score2
-            if minusResult==1 { score = "Advantage player1" }
-            else if minusResult  == -1 { score = "Advantage player2" }
-            else if minusResult>=2 { score = "Win for player1" }
-            else { score = "Win for player2" }
+            return calculateAdvantageorWin()
         }
         else
         {
-            for i in 1..<3
-            {
-                if i==1 { tempScore = score1 }
-                else { score = "\(score)-"; tempScore = score2 }
-                switch tempScore
-                {
-                case 0:
-                    score = "\(score)Love"
-
-                case 1:
-                    score = "\(score)Fifteen"
-
-                case 2:
-                    score = "\(score)Thirty"
-
-                case 3:
-                    score = "\(score)Forty"
-
-                default:
-                    break
-
-                }
-            }
+            return calculateScore()
         }
-        return score
     }
     
     
