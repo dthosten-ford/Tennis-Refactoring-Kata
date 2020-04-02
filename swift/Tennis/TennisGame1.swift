@@ -14,17 +14,23 @@ class TennisGame1: TennisGame {
     }
 
     func wonPoint(_ playerName: String) {
-        if playerName == "player1" {
+        if playerName == player1 {
             score1 += 1
         } else {
             score2 += 1
         }
     }
     
+    var scoreIsTied: Bool { score1 == score2 }
+    
+    fileprivate func playerIsEligibleToWin(score1: Int, score2: Int) -> Bool {
+        return score1>=4 || score2>=4
+    }
+    
     var score: String? {
         var score = ""
         var tempScore = 0
-        if score1 == score2
+        if scoreIsTied
         {
             switch score1
             {
@@ -42,7 +48,7 @@ class TennisGame1: TennisGame {
                 
             }
         }
-        else if score1>=4 || score2>=4
+        else if playerIsEligibleToWin(score1: score1, score2: score2)
         {
             let minusResult = score1-score2
             if minusResult==1 { score = "Advantage player1" }
