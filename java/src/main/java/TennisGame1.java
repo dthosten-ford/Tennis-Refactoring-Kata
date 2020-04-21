@@ -19,28 +19,15 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
         if (playerOneScore == playerTwoScore)
-        {
-            score = getTieResult();
-        }
+            return getTieResult(playerOneScore);
         else if (playerOneScore >=4 || playerTwoScore >=4)
-        {
-            score = getWinOrAdvantageResult();
-        }
-        else
-        {
-            score = getGameResult(playerOneScore, playerTwoScore);
-        }
-        return score;
+            return getWinOrAdvantageResult();
+        return getGameResult(playerOneScore, playerTwoScore);
     }
 
     private String getGameResult(int playerOneScore, int playerTwoScore) {
-        return getScore(playerOneScore) + "-" + getScore(playerTwoScore);
-    }
-
-    private String getScore(int tempScore) {
-        return scoreList[tempScore];
+        return scoreList[playerOneScore] + "-" + scoreList[playerTwoScore];
     }
 
     private String getWinOrAdvantageResult() {
@@ -53,24 +40,10 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private String getTieResult() {
-        String score;
-        switch (playerOneScore)
-        {
-            case 0:
-                    score = "Love-All";
-                break;
-            case 1:
-                    score = "Fifteen-All";
-                break;
-            case 2:
-                    score = "Thirty-All";
-                break;
-            default:
-                    score = "Deuce";
-                break;
-
+    private String getTieResult(int score) {
+        if(score > 2) {
+            return "Deuce";
         }
-        return score;
+        return scoreList[score]+ "-All";
     }
 }
