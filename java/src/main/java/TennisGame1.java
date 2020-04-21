@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class TennisGame1 implements TennisGame {
     
@@ -38,25 +40,19 @@ public class TennisGame1 implements TennisGame {
 
     private String getGameResult(String score, int playerOneScore, int playerTwoScore) {
         int tempScore;
+        List<String> scoreList = new ArrayList<String>();
+        scoreList.add("Love");
+        scoreList.add("Fifteen");
+        scoreList.add("Thirty");
+        scoreList.add("Forty");
+
         for (int i = 1; i<3; i++)
         {
             if (i==1) tempScore = playerOneScore;
-            else { score+="-"; tempScore = playerTwoScore;}
-            switch(tempScore)
-            {
-                case 0:
-                    score+="Love";
-                    break;
-                case 1:
-                    score+="Fifteen";
-                    break;
-                case 2:
-                    score+="Thirty";
-                    break;
-                case 3:
-                    score+="Forty";
-                    break;
-            }
+            else { score+="-"; tempScore = playerTwoScore; }
+
+            score+=scoreList.get(tempScore);
+
         }
         return score;
     }
