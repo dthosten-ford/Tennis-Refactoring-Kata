@@ -28,18 +28,7 @@ class TennisGame1: TennisGame {
     }
     
     fileprivate func calculateScore() -> String {
-        var tempScore = 0
-        var score = ""
-        for i in 1..<3 {
-            if i==1 {
-                tempScore = score1
-            }
-            else {
-                score = "\(score)-"; tempScore = score2
-            }
-            score = "\(score)\(scoreRepresentator(tempScore))"
-        }
-        return score
+        return "\(scoreRepresentator(score1))-\(scoreRepresentator(score2))"
     }
     
     fileprivate func scoreRepresentator(_ score: Int) -> String {
