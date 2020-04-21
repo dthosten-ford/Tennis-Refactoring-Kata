@@ -59,13 +59,13 @@ class TennisGame1: TennisGame {
     fileprivate func calculateAdvantageorWin() -> String {
         let minusResult = playerOne.score - playerTwo.score
         if minusResult==1 {
-            return "Advantage player1"
+            return "Advantage \(playerOne.name)"
         } else if minusResult  == -1 {
-            return "Advantage player2"
+            return "Advantage \(playerTwo.name)"
         } else if minusResult>=2 {
-            return "Win for player1"
+            return "Win for \(playerOne.name)"
         }
-        return "Win for player2"
+        return "Win for \(playerTwo.name)"
     }
     
     var score: String? {
