@@ -2,7 +2,7 @@ import Foundation
 
 struct Player {
     let name: String
-    var score: Int
+    var points: Int
 }
 
 class TennisGame1: TennisGame {
@@ -10,42 +10,20 @@ class TennisGame1: TennisGame {
     private var playerTwo: Player
     
     required init(player1: String, player2: String) {
-        self.playerOne = Player(name: player1, score: 0)
-        self.playerTwo = Player(name: player2, score: 0)
+        self.playerOne = Player(name: player1, points: 0)
+        self.playerTwo = Player(name: player2, points: 0)
     }
     
     func wonPoint(_ playerName: String) {
         if playerName == playerOne.name {
-            playerOne.score += 1
+            playerOne.points += 1
         } else {
-            playerTwo.score += 1
+            playerTwo.points += 1
         }
-    }
-    
-    var scoreIsTied: Bool { playerOne.score == playerTwo.score }
-    
-    fileprivate func playerIsEligibleToWin(score1: Int, score2: Int) -> Bool {
-        return playerOne.score >= 4 || playerTwo.score >= 4
     }
     
     fileprivate func calculateScore() -> String {
-        return "\(scoreRepresentator(playerOne.score))-\(scoreRepresentator(playerTwo.score))"
-    }
-    
-    fileprivate func scoreRepresentator(_ score: Int) -> String {
-        
-        switch score {
-        case 0:
-            return "Love"
-        case 1:
-            return "Fifteen"
-        case 2:
-            return "Thirty"
-        case 3:
-            return "Forty"
-        default:
-            return ""
-        }
+        return "\(ScoreFormatter().scoreRepresentator(playerOne.points))-\(ScoreFormatter().scoreRepresentator(playerTwo.points))"
     }
     
     fileprivate func calculateTiedScore( _ score: Int) -> String {
@@ -53,13 +31,26 @@ class TennisGame1: TennisGame {
             return "Deuce"
         }
         
-        return scoreRepresentator(score) + "-All"
+        return ScoreFormatter().scoreRepresentator(score) + "-All"
+    }
+    
+    
+    var score: String? {
+        if TennisRules().scoreIsTied(score1: playerOne.points, score2: playerTwo.points) {
+            return calculateTiedScore(playerOne.points)
+        }
+        else if TennisRules().playerIsEligibleToWin(score1: playerOne.points, score2: playerTwo.points) {
+            return calculateAdvantageorWin()
+        }
+        else {
+            return calculateScore()
+        }
     }
     
     fileprivate func calculateAdvantageorWin() -> String {
-        let winner: Player = (playerOne.score > playerTwo.score) ? playerOne : playerTwo
+        let winner: Player = (playerOne.points > playerTwo.points) ? playerOne : playerTwo
         
-        let scoreDifference = abs(playerOne.score - playerTwo.score)
+        let scoreDifference = abs(playerOne.points - playerTwo.points)
         
         if scoreDifference == 1 {
             return "Advantage \(winner.name)"
@@ -67,15 +58,44 @@ class TennisGame1: TennisGame {
         return "Win for \(winner.name)"
     }
     
-    var score: String? {
-        if scoreIsTied {
-            return calculateTiedScore(playerOne.score)
+}
+
+enum ScoreRepresentator: Int, CustomStringConvertible {
+    case love
+    case fifteen
+    case thirty
+    case forty
+    
+    var description: String {
+        switch self {
+        case .love:
+            return "Love"
+        case .fifteen:
+            return "Fifteen"
+        case .thirty:
+            return "Thirty"
+        case .forty:
+            return "Forty"
         }
-        else if playerIsEligibleToWin(score1: playerOne.score, score2: playerTwo.score) {
-            return calculateAdvantageorWin()
+   }
+}
+
+class TennisRules {
+    
+    func scoreIsTied(score1: Int, score2: Int) -> Bool {
+        return score1 == score2
+    }
+    
+    func playerIsEligibleToWin(score1: Int, score2: Int) -> Bool {
+        return score1 >= 4 || score2 >= 4
+    }
+}
+
+class ScoreFormatter {
+    func scoreRepresentator(_ score: Int) -> String {
+        if let finalScore = ScoreRepresentator(rawValue: score) {
+            return finalScore.description
         }
-        else {
-            return calculateScore()
-        }
+        return ""
     }
 }
