@@ -9,11 +9,13 @@ class TennisGame1: TennisGame {
     private var playerOne: Player
     private var playerTwo: Player
     
+    private let scoreFormatter = ScoreFormatter()
+    
     required init(player1: String, player2: String) {
         self.playerOne = Player(name: player1, points: 0)
         self.playerTwo = Player(name: player2, points: 0)
     }
-    
+    //TODO:
     func wonPoint(_ playerName: String) {
         if playerName == playerOne.name {
             playerOne.points += 1
@@ -22,8 +24,64 @@ class TennisGame1: TennisGame {
         }
     }
     
-    fileprivate func calculateScore() -> String {
-        return "\(ScoreFormatter().scoreRepresentator(playerOne.points))-\(ScoreFormatter().scoreRepresentator(playerTwo.points))"
+    var score: String? {
+        if TennisRules().scoreIsTied(score1: playerOne.points, score2: playerTwo.points) {
+            return scoreFormatter.calculateTiedScore(playerOne.points)
+        }
+        else if TennisRules().playerIsEligibleToWin(score1: playerOne.points, score2: playerTwo.points) {
+            return calculateAdvantageorWin()
+        }
+        else {
+            return scoreFormatter.calculateScore(playerOnePoints: playerOne.points, playerTwoPoints: playerTwo.points)
+        }
+    }
+    
+    fileprivate func calculateAdvantageorWin() -> String {
+        let winner = TennisRules().leadingPlayer(from: playerOne, playerTwo)
+        
+        if let advantagePlayer = TennisRules().getAdvantage(from: playerOne, playerTwo) {
+            return "Advantage \(advantagePlayer.name)"
+        }
+        return "Win for \(winner.name)"
+    }
+}
+
+class TennisRules {
+    
+    func leadingPlayer(from p1: Player, _ p2: Player) -> Player {
+        return p1.points > p2.points ? p1 : p2
+    }
+    
+    func getAdvantage(from p1: Player, _ p2: Player) -> Player? {
+        let scoreDifference = getScoreDifference(from: p1, p2)
+        let leadPlayer = leadingPlayer(from: p1, p2)
+        return scoreDifference == 1 ? leadPlayer : nil
+       
+    }
+    
+    func getScoreDifference(from p1 : Player, _ p2: Player) -> Int{
+        return abs(p1.points - p2.points)
+    }
+    
+    func scoreIsTied(score1: Int, score2: Int) -> Bool {
+        return score1 == score2
+    }
+    
+    func playerIsEligibleToWin(score1: Int, score2: Int) -> Bool {
+        return score1 >= 4 || score2 >= 4
+    }
+}
+
+class ScoreFormatter {
+    func scoreRepresentator(_ score: Int) -> String {
+        if let finalScore = ScoreRepresentator(rawValue: score) {
+            return finalScore.description
+        }
+        return ""
+    }
+    
+    fileprivate func calculateScore(playerOnePoints: Int, playerTwoPoints: Int) -> String {
+        return "\(scoreRepresentator(playerOnePoints))-\(scoreRepresentator(playerTwoPoints))"
     }
     
     fileprivate func calculateTiedScore( _ score: Int) -> String {
@@ -31,34 +89,10 @@ class TennisGame1: TennisGame {
             return "Deuce"
         }
         
-        return ScoreFormatter().scoreRepresentator(score) + "-All"
+        return scoreRepresentator(score) + "-All"
     }
-    
-    
-    var score: String? {
-        if TennisRules().scoreIsTied(score1: playerOne.points, score2: playerTwo.points) {
-            return calculateTiedScore(playerOne.points)
-        }
-        else if TennisRules().playerIsEligibleToWin(score1: playerOne.points, score2: playerTwo.points) {
-            return calculateAdvantageorWin()
-        }
-        else {
-            return calculateScore()
-        }
-    }
-    
-    fileprivate func calculateAdvantageorWin() -> String {
-        let winner: Player = (playerOne.points > playerTwo.points) ? playerOne : playerTwo
-        
-        let scoreDifference = abs(playerOne.points - playerTwo.points)
-        
-        if scoreDifference == 1 {
-            return "Advantage \(winner.name)"
-        }
-        return "Win for \(winner.name)"
-    }
-    
 }
+
 
 enum ScoreRepresentator: Int, CustomStringConvertible {
     case love
@@ -78,24 +112,4 @@ enum ScoreRepresentator: Int, CustomStringConvertible {
             return "Forty"
         }
    }
-}
-
-class TennisRules {
-    
-    func scoreIsTied(score1: Int, score2: Int) -> Bool {
-        return score1 == score2
-    }
-    
-    func playerIsEligibleToWin(score1: Int, score2: Int) -> Bool {
-        return score1 >= 4 || score2 >= 4
-    }
-}
-
-class ScoreFormatter {
-    func scoreRepresentator(_ score: Int) -> String {
-        if let finalScore = ScoreRepresentator(rawValue: score) {
-            return finalScore.description
-        }
-        return ""
-    }
 }
