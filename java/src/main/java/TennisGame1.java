@@ -10,7 +10,10 @@ public class TennisGame1 implements TennisGame {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
-
+//goals for next session:
+    //find a way to make getWinOrAdvantageResult simpler.
+    //Strategy pattern.
+    
     public void wonPoint(String playerName) {
         if (playerName == "player1")
             playerOneScore += 1;
@@ -29,6 +32,7 @@ public class TennisGame1 implements TennisGame {
     private String getGameResult(int playerOneScore, int playerTwoScore) {
         return scoreList[playerOneScore] + "-" + scoreList[playerTwoScore];
     }
+    
 
     private String getWinOrAdvantageResult() {
         String score;
