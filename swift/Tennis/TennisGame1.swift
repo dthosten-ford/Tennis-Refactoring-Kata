@@ -37,12 +37,13 @@ class TennisGame1: TennisGame {
     }
     
     fileprivate func calculateAdvantageorWin() -> String {
-        let winner = TennisRules().leadingPlayer(from: playerOne, playerTwo)
         
         if let advantagePlayer = TennisRules().getAdvantage(from: playerOne, playerTwo) {
             return "Advantage \(advantagePlayer.name)"
         }
-        return "Win for \(winner.name)"
+        
+        let winner = TennisRules().leadingPlayer(from: playerOne, playerTwo)
+        return scoreFormatter.winner(winner.name)
     }
 }
 
@@ -56,7 +57,6 @@ class TennisRules {
         let scoreDifference = getScoreDifference(from: p1, p2)
         let leadPlayer = leadingPlayer(from: p1, p2)
         return scoreDifference == 1 ? leadPlayer : nil
-       
     }
     
     func getScoreDifference(from p1 : Player, _ p2: Player) -> Int{
@@ -73,13 +73,6 @@ class TennisRules {
 }
 
 class ScoreFormatter {
-    func scoreRepresentator(_ score: Int) -> String {
-        if let finalScore = ScoreRepresentator(rawValue: score) {
-            return finalScore.description
-        }
-        return ""
-    }
-    
     fileprivate func calculateScore(playerOnePoints: Int, playerTwoPoints: Int) -> String {
         return "\(scoreRepresentator(playerOnePoints))-\(scoreRepresentator(playerTwoPoints))"
     }
@@ -90,6 +83,17 @@ class ScoreFormatter {
         }
         
         return scoreRepresentator(score) + "-All"
+    }
+    
+    func scoreRepresentator(_ score: Int) -> String {
+        if let finalScore = ScoreRepresentator(rawValue: score) {
+            return finalScore.description
+        }
+        return ""
+    }
+    
+    func winner(_ name: String) -> String {
+        return "Win for \(name)"
     }
 }
 
