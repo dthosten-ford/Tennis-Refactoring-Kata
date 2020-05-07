@@ -24,39 +24,59 @@ class TennisGame1: TennisGame {
         }
     }
     
+    // TODO: Finish the switch statements
     var score: String? {
+        switch TennisRules().calculateGameState(from: playerOne, playerTwo) {
+        case .playerWon(let winner):
+            return scoreFormatter.winner(winner.name)
+        case .tiedScore(let score):
+            break
+        default:
+            break
+        }
         if TennisRules().scoreIsTied(score1: playerOne.points, score2: playerTwo.points) {
             return scoreFormatter.calculateTiedScore(playerOne.points)
         }
-        else if TennisRules().playerIsEligibleToWin(score1: playerOne.points, score2: playerTwo.points) {
-            return calculateAdvantageorWin()
-        }
-        else {
-            return scoreFormatter.calculateScore(playerOnePoints: playerOne.points, playerTwoPoints: playerTwo.points)
-        }
-    }
-    
-    fileprivate func calculateAdvantageorWin() -> String {
-        
+            
         if let advantagePlayer = TennisRules().getAdvantage(from: playerOne, playerTwo) {
-            return "Advantage \(advantagePlayer.name)"
+            return scoreFormatter.formattedMessage(forAdvantagePlayer: advantagePlayer.name)
         }
-        
-        let winner = TennisRules().leadingPlayer(from: playerOne, playerTwo)
-        return scoreFormatter.winner(winner.name)
+        return scoreFormatter.calculateScore(playerOnePoints: playerOne.points, playerTwoPoints: playerTwo.points)
     }
 }
 
 class TennisRules {
+    
+    enum GameState {
+        case regularPlay
+        case tiedScore(Int)
+        case playerHasAdvantage(Player)
+        case playerWon(Player)
+        case undefined
+    }
+    
+    func calculateGameState(from player1: Player, _ player2: Player) -> GameState {
+        if let winner = getWinner(from: player1, player2) {
+            return .playerWon(winner)
+        }
+        
+        return .undefined
+    }
     
     func leadingPlayer(from p1: Player, _ p2: Player) -> Player {
         return p1.points > p2.points ? p1 : p2
     }
     
     func getAdvantage(from p1: Player, _ p2: Player) -> Player? {
+        guard playerIsEligibleToWin(score1: p1.points, score2: p2.points) else { return nil }
         let scoreDifference = getScoreDifference(from: p1, p2)
         let leadPlayer = leadingPlayer(from: p1, p2)
         return scoreDifference == 1 ? leadPlayer : nil
+    }
+    
+    private func getWinner(from p1: Player, _ p2: Player) -> Player? {
+        guard playerIsEligibleToWin(score1: p1.points, score2: p2.points) else { return nil }
+        return getScoreDifference(from: p1, p2) > 1 ? leadingPlayer(from: p1, p2) : nil
     }
     
     func getScoreDifference(from p1 : Player, _ p2: Player) -> Int{
@@ -73,11 +93,11 @@ class TennisRules {
 }
 
 class ScoreFormatter {
-    fileprivate func calculateScore(playerOnePoints: Int, playerTwoPoints: Int) -> String {
+    func calculateScore(playerOnePoints: Int, playerTwoPoints: Int) -> String {
         return "\(scoreRepresentator(playerOnePoints))-\(scoreRepresentator(playerTwoPoints))"
     }
     
-    fileprivate func calculateTiedScore( _ score: Int) -> String {
+    func calculateTiedScore( _ score: Int) -> String {
         guard score < 3 else {
             return "Deuce"
         }
@@ -94,6 +114,10 @@ class ScoreFormatter {
     
     func winner(_ name: String) -> String {
         return "Win for \(name)"
+    }
+    
+    func formattedMessage(forAdvantagePlayer player: String) -> String {
+        return "Advantage \(player)"
     }
 }
 
