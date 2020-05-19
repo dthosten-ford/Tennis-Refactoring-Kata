@@ -12,7 +12,12 @@ public class TennisGame1 implements TennisGame {
         player2 = new Player(player2Name);
     }
 //goals for next session:
-    //find a way to make getWinOrAdvantageResult simpler.
+    //eat lunch.
+    //simplify getScore
+    //--run test!
+    //eat 2nd lunch.
+    //centralize getWinningScore logic.
+    //pay taxes.
     //Strategy pattern.
     
     public void wonPoint(String playerName) {
@@ -24,30 +29,48 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        if (player1.score == player2.score)
+        if (isTie())
             return getTieResult(player1.score);
-        else if (player1.score >=4 || player2.score >=4)
+        if(isAdvantageScore())
+            return getAdvantageScore(player1, player2);
+        //else if (isWinningScore())
+            //return getWinningScore()
+        if (isAdvantageOrWin())
             return getWinOrAdvantageResult(player1, player2);
         return getGameResult(player1.score, player2.score);
+    }
+
+    private String getAdvantageScore(Player player1, Player player2){
+        return "Advantage " + getAdvantagePlayerName(player1, player2);
+    }
+
+    private boolean isAdvantageOrWin() {
+        return player1.score >=4 || player2.score >=4;
+    }
+
+    private boolean isTie() {
+        return player1.score == player2.score;
     }
 
     private String getGameResult(int playerOneScore, int playerTwoScore) {
         return scoreList[playerOneScore] + "-" + scoreList[playerTwoScore];
     }
-    
 
     private String getAdvantagePlayerName(Player player1, Player player2){
         return (player1.score > player2.score) ? player1.name : player2.name;
     }
 
     private Boolean isAdvantageScore(){
-        int minusResult = player1.score - player2.score;
-        return abs(minusResult)==1;
+        if (isAdvantageOrWin()) {
+            int minusResult = player1.score - player2.score;
+            return abs(minusResult)==1;
+        }
+        return false;
     }
 
     private String getWinOrAdvantageResult(Player player1, Player player2) {
         if (isAdvantageScore())
-            return "Advantage " + getAdvantagePlayerName(player1, player2);
+            return getAdvantageScore(player1, player2);
         return "Win for " + getAdvantagePlayerName(player1, player2);
     }
 
