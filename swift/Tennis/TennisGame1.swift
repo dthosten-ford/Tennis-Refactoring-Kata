@@ -1,48 +1,53 @@
 import Foundation
 
-struct Player {
+class Player {
     let name: String
     var points: Int
+    
+    init(name: String, points: Int) {
+        self.name = name
+        self.points = points
+    }
 }
 
 class TennisGame1: TennisGame {
     private var playerOne: Player
     private var playerTwo: Player
-    
+    private let tennisRules = TennisRules()
     private let scoreFormatter = ScoreFormatter()
     
     required init(player1: String, player2: String) {
         self.playerOne = Player(name: player1, points: 0)
         self.playerTwo = Player(name: player2, points: 0)
     }
-    //TODO:
+
     func wonPoint(_ playerName: String) {
-        if playerName == playerOne.name {
-            playerOne.points += 1
-        } else {
-            playerTwo.points += 1
-        }
+        let player = playerForName(playerName)
+        player?.points += 1
     }
     
-    // TODO: Finish the switch statements
+    func playerForName(_ player: String) -> Player? {
+        let players = [playerOne, playerTwo]
+        return players.first(where: { $0.name == player })
+    }
+
     var score: String? {
-        switch TennisRules().calculateGameState(from: playerOne, playerTwo) {
+        switch tennisRules.calculateGameState(from: playerOne, playerTwo) {
         case .playerWon(let winner):
             return scoreFormatter.winner(winner.name)
         case .tiedScore(let score):
-            break
-        default:
-            break
+             return scoreFormatter.calculateTiedScore(score)
+        case .playerHasAdvantage(let player):
+            return scoreFormatter.formattedMessage(forAdvantagePlayer: player.name)
+        case .regularPlay:
+            return scoreFormatter.calculateRegularScore(playerOnePoints: playerOne.points, playerTwoPoints: playerTwo.points)
         }
-        if TennisRules().scoreIsTied(score1: playerOne.points, score2: playerTwo.points) {
-            return scoreFormatter.calculateTiedScore(playerOne.points)
-        }
-            
-        if let advantagePlayer = TennisRules().getAdvantage(from: playerOne, playerTwo) {
-            return scoreFormatter.formattedMessage(forAdvantagePlayer: advantagePlayer.name)
-        }
-        return scoreFormatter.calculateScore(playerOnePoints: playerOne.points, playerTwoPoints: playerTwo.points)
+        // for each implementation of the RulesAndScores protocol, get the score and return it if it exists
     }
+}
+
+protocol RulesAndScores {
+    func getPossibleScore(_ player1: Player, _ player2: Player) -> String?
 }
 
 class TennisRules {
@@ -52,7 +57,6 @@ class TennisRules {
         case tiedScore(Int)
         case playerHasAdvantage(Player)
         case playerWon(Player)
-        case undefined
     }
     
     func calculateGameState(from player1: Player, _ player2: Player) -> GameState {
@@ -60,7 +64,14 @@ class TennisRules {
             return .playerWon(winner)
         }
         
-        return .undefined
+        if scoreIsTied(score1: player1.points, score2: player2.points) {
+            return .tiedScore(player1.points)
+        }
+        
+        if let player = getAdvantage(from: player1, player2) {
+            return .playerHasAdvantage(player)
+        }
+        return .regularPlay
     }
     
     func leadingPlayer(from p1: Player, _ p2: Player) -> Player {
@@ -93,7 +104,7 @@ class TennisRules {
 }
 
 class ScoreFormatter {
-    func calculateScore(playerOnePoints: Int, playerTwoPoints: Int) -> String {
+    func calculateRegularScore(playerOnePoints: Int, playerTwoPoints: Int) -> String {
         return "\(scoreRepresentator(playerOnePoints))-\(scoreRepresentator(playerTwoPoints))"
     }
     
@@ -101,7 +112,6 @@ class ScoreFormatter {
         guard score < 3 else {
             return "Deuce"
         }
-        
         return scoreRepresentator(score) + "-All"
     }
     
