@@ -2,13 +2,12 @@ import Foundation
 
 struct Player {
     let name: String
-    let point: Int
+    var point: Int
 }
 
 class TennisGame2: TennisGame {
-    private let playerOne: Player
+    private var playerOne: Player
     private let playerTwo: Player
-    private var P1point: Int = 0
     private var P2point: Int = 0
 
     required init(player1: String, player2: String) {
@@ -46,39 +45,39 @@ class TennisGame2: TennisGame {
         var P1res: String = ""
         var P2res: String = ""
         
-        if P1point == P2point && P1point < 3 {
-           score = getScore(point1: P1point, point2: P2point)
+        if playerOne.point == P2point && playerOne.point < 3 {
+           score = getScore(point1: playerOne.point, point2: P2point)
         }
-        if P1point==P2point && P1point>2
+        if playerOne.point==P2point && playerOne.point>2
         { score = "Deuce" }
 
-        if P1point > 0 && P2point==0
+        if playerOne.point > 0 && P2point==0
         {
-            P1res = getPoint(P1point)
+            P1res = getPoint(playerOne.point)
             P2res = "Love"
             score = "\(P1res)-Love"
         }
         
-        if P2point > 0 && P1point==0
+        if P2point > 0 && playerOne.point==0
         {
             P2res = getPoint(P2point)
             P1res = "Love"
             score = "\(P1res)-\(P2res)"
         }
         
-        if (P1point>P2point && P1point < 4)
+        if (playerOne.point>P2point && playerOne.point < 4)
         {
-            P1res = getPoint(P1point)
+            P1res = getPoint(playerOne.point)
             if (P2point==1 || P2point==2) {
                 P2res = getPoint(P2point)
             }
             score = "\(P1res)-\(P2res)"
         }
         
-        if P2point>P1point && P2point < 4 {
+        if P2point>playerOne.point && P2point < 4 {
             P2res = getPoint(P2point)
-            if (P1point==1 || P1point==2) {
-                P1res = getPoint(P1point)
+            if (playerOne.point==1 || playerOne.point==2) {
+                P1res = getPoint(playerOne.point)
             }
             score = "\(P1res)-\(P2res)"
         }
@@ -93,21 +92,21 @@ class TennisGame2: TennisGame {
     func advantageorWinForPlayer() -> String? {
         var score: String?
         
-        if P1point > P2point && P2point >= 3
+        if playerOne.point > P2point && P2point >= 3
         {
             score = "Advantage " + playerOne.name
         }
         
-        if P2point > P1point && P1point >= 3
+        if P2point > playerOne.point && playerOne.point >= 3
         {
             score = "Advantage " + playerTwo.name
         }
         
-        if P1point>=4 && P2point>=0 && (P1point-P2point)>=2
+        if playerOne.point>=4 && P2point>=0 && (playerOne.point-P2point)>=2
         {
             score = "Win for " + playerOne.name
         }
-        if P2point>=4 && P1point>=0 && (P2point-P1point)>=2
+        if P2point>=4 && playerOne.point>=0 && (P2point-playerOne.point)>=2
         {
             score = "Win for " + playerTwo.name
         }
@@ -131,7 +130,7 @@ class TennisGame2: TennisGame {
     }
     
     private func P1Score() {
-        P1point+=1
+        playerOne.point+=1
     }
     
     private func P2Score() {
