@@ -1,14 +1,19 @@
 import Foundation
 
+struct Player {
+    let name: String
+    let point: Int
+}
+
 class TennisGame2: TennisGame {
-    private let player1Name: String
-    private let player2Name: String
+    private let playerOne: Player
+    private let playerTwo: Player
     private var P1point: Int = 0
     private var P2point: Int = 0
 
     required init(player1: String, player2: String) {
-        player1Name = player1
-        player2Name = player2
+        playerOne = Player(name: player1, point: 0)
+        playerTwo = Player(name: player2, point: 0)
     }
     
     func getScore(point1: Int, point2: Int) -> String {
@@ -84,27 +89,27 @@ class TennisGame2: TennisGame {
         
         return score
     }
-
+//TODO: Make this functional, eventually (i.e. pass in the player objects)
     func advantageorWinForPlayer() -> String? {
         var score: String?
         
         if P1point > P2point && P2point >= 3
         {
-            score = "Advantage player1"
+            score = "Advantage " + playerOne.name
         }
         
         if P2point > P1point && P1point >= 3
         {
-            score = "Advantage player2"
+            score = "Advantage " + playerTwo.name
         }
         
         if P1point>=4 && P2point>=0 && (P1point-P2point)>=2
         {
-            score = "Win for player1"
+            score = "Win for " + playerOne.name
         }
         if P2point>=4 && P1point>=0 && (P2point-P1point)>=2
         {
-            score = "Win for player2"
+            score = "Win for " + playerTwo.name
         }
          return score
     }
