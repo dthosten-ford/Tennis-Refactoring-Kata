@@ -4,77 +4,77 @@ class TennisGame2: TennisGame {
     private let player1Name: String
     private let player2Name: String
     private var P1point: Int = 0
-    private var P1res: String = ""
     private var P2point: Int = 0
-    private var P2res: String = ""
 
     required init(player1: String, player2: String) {
         player1Name = player1
         player2Name = player2
     }
-
+    
+    func getScore(point1: Int, point2: Int) -> String {
+        var score = ""
+        switch (point1) {
+        case 0: score = "Love"
+        case 1: score = "Fifteen"
+        case 2: score = "Thirty"
+        default: break
+        }
+        return  "\(score)-All"
+    }
+    
+    func getPoint(_ point: Int) -> String {
+        var score = ""
+        if (point==1)
+        { score = "Fifteen" }
+        if (point==2)
+        { score = "Thirty" }
+        if (point==3)
+        { score = "Forty" }
+        if (point==4)
+        { score = "Love" }
+        
+        return score
+    }
+    
     var score: String? {
         var score = ""
-        if P1point == P2point && P1point < 3
-        {
-            if P1point==0
-            { score = "Love" }
-            if P1point==1
-            { score = "Fifteen" }
-            if P1point==2
-            { score = "Thirty" }
-            score = "\(score)-All"
+        var P1res: String = ""
+        var P2res: String = ""
+        
+        if P1point == P2point && P1point < 3 {
+           score = getScore(point1: P1point, point2: P2point)
         }
         if P1point==P2point && P1point>2
         { score = "Deuce" }
 
         if P1point > 0 && P2point==0
         {
-            if (P1point==1)
-            { P1res = "Fifteen" }
-            if (P1point==2)
-            { P1res = "Thirty" }
-            if (P1point==3)
-            { P1res = "Forty" }
-            
+            P1res = getPoint(P1point)
             P2res = "Love"
-            score = "\(P1res)-\(P2res)"
+            score = "\(P1res)-Love"
         }
+        
         if P2point > 0 && P1point==0
         {
-            if (P2point==1)
-            { P2res = "Fifteen" }
-            if (P2point==2)
-            { P2res = "Thirty" }
-            if (P2point==3)
-            { P2res = "Forty" }
-            
+            P2res = getPoint(P2point)
             P1res = "Love"
             score = "\(P1res)-\(P2res)"
         }
         
         if (P1point>P2point && P1point < 4)
         {
-            if (P1point==2)
-            { P1res="Thirty" }
-            if (P1point==3)
-            { P1res="Forty" }
-            if (P2point==1)
-            { P2res="Fifteen" }
-            if (P2point==2)
-            { P2res="Thirty" }
+            P1res = getPoint(P1point)
+            if (P2point==1 || P2point==2) {
+                P2res = getPoint(P2point)
+            }
             score = "\(P1res)-\(P2res)"
         }
-        if P2point>P1point && P2point < 4
-        {
-            if (P2point==2)
-            { P2res="Thirty" }
-            if (P2point==3)
-            { P2res="Forty" }
-            if (P1point==1)
-            { P1res="Fifteen" }
-            if (P1point==2)
-            { P1res="Thirty" }
+        
+        if P2point>P1point && P2point < 4 {
+            P2res = getPoint(P2point)
+            if (P1point==1 || P1point==2) {
+                P1res = getPoint(P1point)
+            }
             score = "\(P1res)-\(P2res)"
         }
         
@@ -98,7 +98,7 @@ class TennisGame2: TennisGame {
         }
         return score
     }
-    
+
    private func setP1Score(number: Int) {
         
         for _ in 0..<number {
