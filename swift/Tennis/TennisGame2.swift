@@ -78,6 +78,16 @@ class TennisGame2: TennisGame {
             score = "\(P1res)-\(P2res)"
         }
         
+        if let newScore = advantageorWinForPlayer() {
+            score = newScore
+        }
+        
+        return score
+    }
+
+    func advantageorWinForPlayer() -> String? {
+        var score: String?
+        
         if P1point > P2point && P2point >= 3
         {
             score = "Advantage player1"
@@ -96,9 +106,9 @@ class TennisGame2: TennisGame {
         {
             score = "Win for player2"
         }
-        return score
+         return score
     }
-
+    
    private func setP1Score(number: Int) {
         
         for _ in 0..<number {
