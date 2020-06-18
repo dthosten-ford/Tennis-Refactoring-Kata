@@ -130,6 +130,8 @@ class TennisGame2: TennisGame {
     
   
     func wonPoint(_ playerName: String) {
+        //playerOne.wonPoint(playerName)
+        //playerTwo.wonPoint(playerName)
         if playerName == "player1" {
             playerOne.point+=1
         } else {
