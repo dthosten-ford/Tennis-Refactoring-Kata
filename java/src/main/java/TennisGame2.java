@@ -21,15 +21,15 @@ public class TennisGame2 implements TennisGame{
     }
 
     public String getScore(){
-        String score;
-        score = getNormalScore("");
+        String score = getNormalScore();
 
         score = getAdvantageScore(score);
 
         return getWinScore(score);
     }
 
-    private String getNormalScore(String score) {
+    private String getNormalScore() {
+        String score="";
         if (isNormalScore(Player1.Point
                 == Player2.Point, Player1))
         {
