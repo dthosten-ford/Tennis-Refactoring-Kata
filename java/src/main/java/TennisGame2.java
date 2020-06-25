@@ -22,6 +22,15 @@ public class TennisGame2 implements TennisGame{
 
     public String getScore(){
         String score = "";
+        score = getNormalScore(score);
+
+        score = getAdvantageScore(score);
+
+        score = getWinScore(score);
+        return score;
+    }
+
+    private String getNormalScore(String score) {
         if (isNormalScore(Player1.Point
                 == Player2.Point, Player1))
         {
@@ -51,7 +60,7 @@ public class TennisGame2 implements TennisGame{
             if (Player1.Point
                     ==3)
                 P1res = "Forty";
-            
+
             P2res = "Love";
             score = P1res + "-" + P2res;
         }
@@ -64,11 +73,11 @@ public class TennisGame2 implements TennisGame{
                 P2res = "Thirty";
             if (Player2.Point==3)
                 P2res = "Forty";
-            
+
             P1res = "Love";
             score = P1res + "-" + P2res;
         }
-        
+
         if (isNormalScore(Player1.Point
                 >Player2.Point, Player1))
         {
@@ -78,10 +87,6 @@ public class TennisGame2 implements TennisGame{
         {
             score = calculateNormalScoreForPlayer2Leading();
         }
-
-        score = getAdvantageScore(score);
-
-        score = getWinScore(score);
         return score;
     }
 
