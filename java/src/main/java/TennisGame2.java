@@ -36,11 +36,9 @@ public class TennisGame2 implements TennisGame{
                 score = "Thirty";
             score += "-All";
         }
-        if (Player1.Point
-                ==Player2.Point && Player1.Point
-                >=3)
-            score = "Deuce";
-        
+        score = getTieScore(score, Player1.Point
+                == Player2.Point, Player1, "Deuce");
+
         if (Player1.Point
                 > 0 && Player2.Point==0)
         {
@@ -80,20 +78,21 @@ public class TennisGame2 implements TennisGame{
         {
             score = calculateNormalScoreForPlayer2Leading();
         }
-        
-        if (Player1.Point
-                > Player2.Point && Player2.Point >= 3)
-        {
-            score = "Advantage player1";
-        }
-        
-        if (Player2.Point > Player1.Point
-                && Player1.Point
+
+        score = getAdvantageScore(score);
+
+        score = getWinScore(score);
+        return score;
+    }
+
+    private String getTieScore(String score, boolean b, Player player1, String deuce) {
+        if (b && player1.Point
                 >= 3)
-        {
-            score = "Advantage player2";
-        }
-        
+            score = deuce;
+        return score;
+    }
+
+    private String getWinScore(String score) {
         if (Player1.Point
                 >=4 && Player2.Point>=0 && (Player1.Point
                 -Player2.Point)>=2)
@@ -106,6 +105,14 @@ public class TennisGame2 implements TennisGame{
         {
             score = "Win for player2";
         }
+        return score;
+    }
+
+    private String getAdvantageScore(String score) {
+        score = getTieScore(score, Player1.Point
+                > Player2.Point, Player2, "Advantage player1");
+
+        score = getTieScore(score, Player2.Point > Player1.Point, Player1, "Advantage player2");
         return score;
     }
 
