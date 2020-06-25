@@ -21,13 +21,12 @@ public class TennisGame2 implements TennisGame{
     }
 
     public String getScore(){
-        String score = "";
-        score = getNormalScore(score);
+        String score;
+        score = getNormalScore("");
 
         score = getAdvantageScore(score);
 
-        score = getWinScore(score);
-        return score;
+        return getWinScore(score);
     }
 
     private String getNormalScore(String score) {
