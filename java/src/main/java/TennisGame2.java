@@ -4,80 +4,108 @@
 // Movements
 // Scoring
 
+//What would OCP look like here?
+
+
 
 public class TennisGame2 implements TennisGame
 {
+    //players points
     public int P1point = 0;
     public int P2point = 0;
-    
-    public String P1res = "";
-    public String P2res = "";
+
+    //create global variables of points
+    private static final String SCORE_LOVE = "0";
+    private static final String SCORE_FIFTEEN = "15";
+    private static final String SCORE_THIRTY = "30";
+    private static final String SCORE_FORTY = "40";
+
+    //player result
+    public String P1result = "";
+    public String P2result = "";
+
+    //player name
     private String player1Name;
     private String player2Name;
+
+    private Player player1 = new Player();
+
+
 
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
 
+
+    //responsible to get player score
+
+    //can remove dependency on those global variables, we need to add return type.
+    //passes players as parameters and get result back.
+    //consolidate player related logic to player class.
     public String getScore(){
         String score = "";
-        if (P1point == P2point && P1point < 4)
+        //******* can refactor this if blocks
+        if (player1.playerPoint == P2point && player1.playerPoint < 4)
         {
-            score = getPlayerScore(P1point);
+            score = getPlayerScore(player1.playerPoint);
             score += "-All";
         }
-        if (P1point==P2point && P1point>=3)
+        if (player1.playerPoint==P2point && player1.playerPoint>=3)
             score = "Deuce";
-        
-        if (P1point > 0 && P2point==0)
+
+        if (player1.playerPoint > 0 && P2point==0)
         {
 //            getPlayerScore(P1point);
 
-            P2res = "Love";
-            P1res = getPlayerScore(P1point);
-            score = P1res + "-" + P2res;
+            P2result = "Love";
+            P1result = getPlayerScore(player1.playerPoint);
+            score = P1result + "-" + P2result;
         }
-        if (P2point > 0 && P1point==0)
+
+        //******* can refactor this If blocks
+
+        if (P2point > 0 && player1.playerPoint==0)
         {
 
-            P2res = getPlayerScore(P2point);
-            
-            P1res = "Love";
-            score = P1res + "-" + P2res;
+            P2result = getPlayerScore(P2point);
+
+            P1result = "Love";
+            score = P1result + "-" + P2result;
         }
-        
-        if (P1point>P2point && P1point < 4)
+
+        if (player1.playerPoint>P2point && player1.playerPoint < 4)
         {
             if(getPlayerScore(P2point) != "")
-                P2res = getPlayerScore(P2point);
+                P2result = getPlayerScore(P2point);
 
-            score = getPlayerScore(P1point) + "-" + P2res;
+            score = getPlayerScore(player1.playerPoint) + "-" + P2result;
         }
-        if (P2point>P1point && P2point < 4)
+        if (P2point>player1.playerPoint && P2point < 4)
         {
-            P2res = getPlayerScore(P2point);
-            if(getPlayerScore(P1point) != "")
-                P1res = getPlayerScore(P1point);
+            P2result = getPlayerScore(P2point);
+            if(getPlayerScore(player1.playerPoint) != "")
+                P1result = getPlayerScore(player1.playerPoint);
 
-            score = P1res + "-" + P2res;
+            score = P1result + "-" + P2result;
         }
-        
-        if (P1point > P2point && P2point >= 3)
+
+        // switch or strategy pattern
+        if (player1.playerPoint > P2point && P2point >= 3)
         {
             score = "Advantage player1";
         }
-        
-        if (P2point > P1point && P1point >= 3)
+
+        if (P2point > player1.playerPoint && player1.playerPoint >= 3)
         {
             score = "Advantage player2";
         }
-        
-        if (P1point>=4 && P2point>=0 && (P1point-P2point)>=2)
+
+        if (player1.playerPoint>=4 && P2point>=0 && (player1.playerPoint-P2point)>=2)
         {
             score = "Win for player1";
         }
-        if (P2point>=4 && P1point>=0 && (P2point-P1point)>=2)
+        if (P2point>=4 && player1.playerPoint>=0 && (P2point-player1.playerPoint)>=2)
         {
             score = "Win for player2";
         }
@@ -97,29 +125,31 @@ public class TennisGame2 implements TennisGame
     }
 
     public void SetP1Score(int number){
-        
+
         for (int i = 0; i < number; i++)
         {
             P1Score();
         }
-            
+
     }
-    
+
     public void SetP2Score(int number){
-        
+
         for (int i = 0; i < number; i++)
         {
             P2Score();
         }
-            
+
     }
-    
+
     public void P1Score(){
         P1point++;
+        player1.playerPoint++;
     }
     
     public void P2Score(){
         P2point++;
+
     }
 
     public void wonPoint(String player) {
@@ -132,5 +162,20 @@ public class TennisGame2 implements TennisGame
    public class Score {
 
 
+   }
+
+   public class Player {
+
+        private String playerScore;
+
+        private int playerPoint;
+
+        public void setPoint (int point) {playerPoint = point;}
+
+        public int getPoint() {return playerPoint;}
+
+        public void setScore (String score) {playerScore = score;}
+
+        public String getScore() {return playerScore;}
    }
 }
