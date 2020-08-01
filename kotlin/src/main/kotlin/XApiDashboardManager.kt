@@ -1,6 +1,8 @@
 package com.ford.xapi.manager
 
 import com.ford.xapi.models.request.XApiDashboardRequest
+import com.ford.xapi.models.response.XApiDashboardResponse
+import com.ford.xapi.provider.XApiProvider
 import org.graalvm.compiler.nodes.memory.MemoryCheckpoint
 import sun.security.krb5.internal.KDCOptions.with
 
@@ -14,8 +16,8 @@ import sun.security.krb5.internal.KDCOptions.with
 //import com.ford.xapi.provider.XApiDataModelAdapter 
 //import com.ford.xapi.provider.XApiProvider 
 //import com.ford.xapi.util.RefreshType 
-import io.reactivex.Observable 
-import io.reactivex.Single 
+import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.concurrent.atomic.AtomicReference 
 import javax.inject.Inject 
 import javax.inject.Singleton  
