@@ -3,46 +3,63 @@ import Foundation
 //test
 
 class TennisGame1: TennisGame {
-    private let player1: String
-    private let player2: String
-    private var score1: Int
-    private var score2: Int
-    
+    private let playerOne: Player
+    private let playerTwo: Player
+
     required init(player1: String, player2: String) {
-        self.player1 = player1
-        self.player2 = player2
-        self.score1 = 0
-        self.score2 = 0
+        playerOne = Player(player1)
+        playerTwo = Player(player2)
+    }
+    
+    class Player {
+        var name: String
+        var score: Int = 0
+        
+        public func getName() -> String {
+            return name
+        }
+        
+        public func getScore() -> Int {
+            return score
+        }
+        
+        public func setName(name: String) {
+            self.name = name
+        }
+        
+        init(_ name: String) {
+            self.name = name
+        }
     }
 
     func wonPoint(_ playerName: String) {
         if playerName == "player1" {
-            score1 += 1
+            playerOne.score += 1
         } else {
-            score2 += 1
+            playerTwo.score += 1
         }
     }
 
-    private func isTieScore() -> Bool {
+    private func isTieScore(_ score1: Int, _ score2: Int) -> Bool {
         return score1 == score2
     }
     
-    private func isWinningScore() -> Bool {
+    private func isWinningScore(_ score1: Int, _ score2: Int) -> Bool {
         return score1>=4 || score2>=4
     }
     
     var score: String? {
-        if isTieScore() {
-            return getTieScore()
-        } else if isWinningScore() {
-            return getWinningScore()
+        if isTieScore(playerOne.score, playerTwo.score) {
+            return getTieScore(playerOne.score)
+        } else if isWinningScore(playerOne.score, playerTwo.score) {
+            return getWinningScore(playerOne.score, playerTwo.score)
         } else {
-            return updateScore()
+            return updateScore(playerOne.score, playerTwo.score)
         }
     }
 
-    func getTieScore() -> String {
-        switch score1
+    func getTieScore(_ score: Int) -> String {
+        switch score
         {
         case 0:
            return "Love-All"
@@ -55,7 +72,7 @@ class TennisGame1: TennisGame {
         }
     }
     
-    private func updateScore() -> String {
+    private func updateScore(_ score1: Int, _ score2: Int) -> String {
         var tempScore = 0
         var score = ""
         for i in 1..<3
@@ -71,7 +88,7 @@ class TennisGame1: TennisGame {
     }
     
     
-    func getWinningScore() -> String {
+    func getWinningScore(_ score1: Int, _ score2: Int) -> String {
         var score = ""
         let minusResult = score1-score2
         if minusResult==1 { score = "Advantage player1" }
