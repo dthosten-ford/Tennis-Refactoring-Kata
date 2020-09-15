@@ -6,11 +6,13 @@ class TennisGame1: TennisGame {
     private let playerOne: Player
     private let playerTwo: Player
 
+    //this method's signature cannot be changed
     required init(player1: String, player2: String) {
         playerOne = Player(player1)
         playerTwo = Player(player2)
     }
-    
+    //TODO: BUNDLE players into GameScore object.
+    //
     class Player {
         var name: String
         var score: Int = 0
@@ -23,20 +25,31 @@ class TennisGame1: TennisGame {
             return score
         }
         
-        public func setName(name: String) {
-            self.name = name
-        }
-        
+//        public func setName(name: String) {
+//            self.name = name
+//        }
+        //YAGNI
         init(_ name: String) {
             self.name = name
         }
     }
-
+    //this method's signature cannot be changed
     func wonPoint(_ playerName: String) {
-        if playerName == "player1" {
+        if playerName == "player1" {//TODO: we can remove the constant.  use playerOne?
             playerOne.score += 1
         } else {
             playerTwo.score += 1
+        }
+    }
+
+    //this method's signature cannot be changed
+    var score: String? {
+        if isTieScore(playerOne.score, playerTwo.score) {
+            return getTieScore(playerOne.score)
+        } else if isWinningScore(playerOne.score, playerTwo.score) {
+            return getWinningScore(playerOne.score, playerTwo.score)
+        } else {
+            return updateScore(playerOne.score, playerTwo.score)
         }
     }
 
@@ -46,16 +59,6 @@ class TennisGame1: TennisGame {
     
     private func isWinningScore(_ score1: Int, _ score2: Int) -> Bool {
         return score1>=4 || score2>=4
-    }
-    
-    var score: String? {
-        if isTieScore(playerOne.score, playerTwo.score) {
-            return getTieScore(playerOne.score)
-        } else if isWinningScore(playerOne.score, playerTwo.score) {
-            return getWinningScore(playerOne.score, playerTwo.score)
-        } else {
-            return updateScore(playerOne.score, playerTwo.score)
-        }
     }
 
     func getTieScore(_ score: Int) -> String {
