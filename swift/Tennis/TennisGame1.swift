@@ -2,6 +2,24 @@ import Foundation
 
 //test
 
+class Player {
+    var name: String
+    var score: Int = 0
+    
+    public func getName() -> String {
+        return name
+    }
+    
+    public func getScore() -> Int {
+        return score
+    }
+    
+    //YAGNI
+    init(_ name: String) {
+        self.name = name
+    }
+}
+
 class TennisGame1: TennisGame {
     private let playerOne: Player
     private let playerTwo: Player
@@ -11,31 +29,12 @@ class TennisGame1: TennisGame {
         playerOne = Player(player1)
         playerTwo = Player(player2)
     }
-    //TODO: BUNDLE players into GameScore object.
-    //
-    class Player {
-        var name: String
-        var score: Int = 0
-        
-        public func getName() -> String {
-            return name
-        }
-        
-        public func getScore() -> Int {
-            return score
-        }
-        
-//        public func setName(name: String) {
-//            self.name = name
-//        }
-        //YAGNI
-        init(_ name: String) {
-            self.name = name
-        }
-    }
+    //TODO: BUNDLE players into Players object.
+    // Players responsibility: combine 2 players.  get players names and scores. identify Who should get the point and then assigns  them the point.
+    
     //this method's signature cannot be changed
     func wonPoint(_ playerName: String) {
-        if playerName == "player1" {//TODO: we can remove the constant.  use playerOne?
+        if playerName == playerOne.getName() {
             playerOne.score += 1
         } else {
             playerTwo.score += 1
