@@ -20,14 +20,28 @@ class Player {
     }
 }
 
-class TennisGame1: TennisGame {
+class Players {
     private let playerOne: Player
     private let playerTwo: Player
+    
+    init(playerOne: Player, playerTwo: Player) {
+        self.playerOne = playerOne
+        self.playerTwo = playerTwo
+    }
+    
+}
+
+class TennisGame1: TennisGame {
+    
+    private let playerOne: Player
+    private let playerTwo: Player
+    private let players: Players
 
     //this method's signature cannot be changed
     required init(player1: String, player2: String) {
         playerOne = Player(player1)
         playerTwo = Player(player2)
+        self.players = Players(playerOne:playerOne, playerTwo: playerTwo)
     }
     //TODO: BUNDLE players into Players object.
     // Players responsibility: combine 2 players.  get players names and scores. identify Who should get the point and then assigns  them the point.
