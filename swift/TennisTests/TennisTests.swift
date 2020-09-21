@@ -72,7 +72,8 @@ extension TennisTests {
 
 // MARK: Invocations
 extension TennisTests {
-		        instantiateAndCheckGame(class: TennisGame1.self)
+    func testAllScoresTennisGame1() {
+        instantiateAndCheckGame(class: TennisGame1.self)
     }
     
     func testAllScoresTennisGame2() {

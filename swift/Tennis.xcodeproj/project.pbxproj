@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2326260E25194400007A07F6 /* builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326260D25194400007A07F6 /* builder.swift */; platformFilter = maccatalyst; };
 		520065DE1F8972C5006EDBDF /* TennisGame2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520065DD1F8972C5006EDBDF /* TennisGame2.swift */; };
 		520065E01F897A01006EDBDF /* TennisGame3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520065DF1F897A01006EDBDF /* TennisGame3.swift */; };
 		52EF22791F892FF600CAD019 /* TennisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF22781F892FF600CAD019 /* TennisTests.swift */; };
@@ -16,7 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2326260D25194400007A07F6 /* builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = builder.swift; sourceTree = "<group>"; };
 		520065DD1F8972C5006EDBDF /* TennisGame2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisGame2.swift; sourceTree = "<group>"; };
 		520065DF1F897A01006EDBDF /* TennisGame3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisGame3.swift; sourceTree = "<group>"; };
 		52EF22751F892FF600CAD019 /* TennisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TennisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +39,7 @@
 			isa = PBXGroup;
 			children = (
 				52EF227E1F89301400CAD019 /* Tennis */,
+				52EF22771F892FF600CAD019 /* TennisTests */,
 				52EF22761F892FF600CAD019 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,8 +68,6 @@
 				520065DD1F8972C5006EDBDF /* TennisGame2.swift */,
 				520065DF1F897A01006EDBDF /* TennisGame3.swift */,
 				52EF227F1F89307F00CAD019 /* TennisGame.swift */,
-				2326260D25194400007A07F6 /* builder.swift */,
-				52EF22771F892FF600CAD019 /* TennisTests */,
 			);
 			path = Tennis;
 			sourceTree = "<group>";
@@ -101,9 +98,6 @@
 		52EF226B1F892FC100CAD019 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				KnownAssetTags = (
-					New,
-				);
 				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				TargetAttributes = {
@@ -146,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				520065E01F897A01006EDBDF /* TennisGame3.swift in Sources */,
-				2326260E25194400007A07F6 /* builder.swift in Sources */,
 				52EF22821F89316100CAD019 /* TennisGame1.swift in Sources */,
 				520065DE1F8972C5006EDBDF /* TennisGame2.swift in Sources */,
 				52EF22801F89307F00CAD019 /* TennisGame.swift in Sources */,
@@ -221,11 +214,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = TennisTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ivanrublev.TennisTests;
@@ -282,17 +271,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = TennisTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ivanrublev.TennisTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
