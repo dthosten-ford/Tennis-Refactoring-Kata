@@ -7,7 +7,22 @@
 
 import Foundation
 
-class XmlBuilder{
+
+class XmlBuilder {
+    
+    func buildXML(firstName: String, lastName: String) -> String {
+        let node1 = XMLElement(name: "first", stringValue: firstName)
+        
+        return "<names>" +
+            "<name>" +
+            "<first>Donnie</first>" +
+            "<last>Duck</last>" +
+            "</name>" +
+            "</names>"
+    }
+    
+
+}
     
 //    import Cocoa
 //
@@ -39,4 +54,4 @@ class XmlBuilder{
 //        </name>
 //     </names>
 //     */
-}
+//}
