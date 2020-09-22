@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2326261425195331007A07F6 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261325195331007A07F6 /* Builder.swift */; platformFilter = maccatalyst; };
-		2326261825195474007A07F6 /* BuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261725195474007A07F6 /* BuilderTests.swift */; };
+		2326261825195474007A07F6 /* BuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261725195474007A07F6 /* BuilderTests.swift */; platformFilter = maccatalyst; };
 		520065DE1F8972C5006EDBDF /* TennisGame2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520065DD1F8972C5006EDBDF /* TennisGame2.swift */; };
 		520065E01F897A01006EDBDF /* TennisGame3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520065DF1F897A01006EDBDF /* TennisGame3.swift */; };
 		52EF22791F892FF600CAD019 /* TennisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF22781F892FF600CAD019 /* TennisTests.swift */; };
@@ -231,7 +231,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ivanrublev.TennisTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -291,7 +291,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ivanrublev.TennisTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
