@@ -108,23 +108,23 @@ extension TennisTests {
         XCTAssertEqual(game.score, expectedScore)
     }
     
-    func testBuildOneNodeExample(){
-//        var expected =
-//        "<flavors>"+
-//        "<flavor name='Test-Driven Development'>"+
-//            "<requirements>"+
-//                "<requirement type='hardware'>"+
-//                    "1 computer for every 2 participants"+
-//                "</requirement>"+
-//                "<requirements>"+
-//                "<requirement type='software'>"+
-//                    "IDE"+
-//                "</requirement>"+
-//            "</requirements>"+
-//        "</flavor>"
-//
-        XCTAssertEqual(1, 2)
-    }
+//    func testBuildOneNodeExample(){
+////        var expected =
+////        "<flavors>"+
+////        "<flavor name='Test-Driven Development'>"+
+////            "<requirements>"+
+////                "<requirement type='hardware'>"+
+////                    "1 computer for every 2 participants"+
+////                "</requirement>"+
+////                "<requirements>"+
+////                "<requirement type='software'>"+
+////                    "IDE"+
+////                "</requirement>"+
+////            "</requirements>"+
+////        "</flavor>"
+////
+//        XCTAssertEqual(1, 2)
+//    }
     
     func testSimpleXml(){
         let subject = XmlBuilder()

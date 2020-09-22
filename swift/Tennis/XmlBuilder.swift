@@ -11,14 +11,27 @@ import Foundation
 class XmlBuilder {
     
     func buildXML(firstName: String, lastName: String) -> String {
-        let node1 = XMLElement(name: "first", stringValue: firstName)
+        //let node1 = XMLElement(name: "first", stringValue: firstName)
         
-        return "<names>" +
-            "<name>" +
-            "<first>Donnie</first>" +
-            "<last>Duck</last>" +
-            "</name>" +
-            "</names>"
+        let firstNameNode = XMLElement(name: "first", stringValue: firstName)
+        let lastNameNode = XMLElement(name: "last", stringValue: lastName)
+        
+        let root = XMLElement(name: "names")
+        let nestedNode = XMLElement(name: "name")
+        
+        root.addChild(nestedNode)
+        nestedNode.addChild(firstNameNode)
+        nestedNode.addChild(lastNameNode)
+        
+        let document = XMLDocument(rootElement: root)
+        let xmlData = document.xmlData()
+        return String(data: xmlData, encoding: .utf8) ?? ""
+//        return "<names>" +
+//            "<name>" +
+//            "<first>Donnie</first>" +
+//            "<last>Duck</last>" +
+//            "</name>" +
+//            "</names>"
     }
     
 
