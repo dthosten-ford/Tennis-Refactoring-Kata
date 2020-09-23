@@ -21,8 +21,8 @@ class Player {
 }
 
 class Players {
-    private let playerOne: Player
-    private let playerTwo: Player
+    let playerOne: Player
+    let playerTwo: Player
     
     init(playerOne: Player, playerTwo: Player) {
         self.playerOne = playerOne
@@ -32,50 +32,47 @@ class Players {
 }
 
 class TennisGame1: TennisGame {
-    private let playerOne: Player
-    private let playerTwo: Player
+
 
     private let players: Players
     
     //this method's signature cannot be changed
     required init(player1: String, player2: String) {
-        playerOne = Player(player1)
-        playerTwo = Player(player2)
-        self.players = Players(playerOne:playerOne, playerTwo: playerTwo)
+        self.players = Players(playerOne:Player(player1), playerTwo: Player(player2))
     }
-    //TODO: BUNDLE players into Players object.
+    
     // Players responsibility: combine 2 players.  get players names and scores. identify Who should get the point and then assigns  them the point.
     
     //this method's signature cannot be changed
     func wonPoint(_ playerName: String) {
-        if playerName == playerOne.getName() {
-            playerOne.score += 1
+        if playerName == players.playerOne.getName() {
+            players.playerOne.score += 1
         } else {
-            playerTwo.score += 1
+            players.playerTwo.score += 1
         }
     }
 
     //this method's signature cannot be changed
     var score: String? {
-        if isTieScore(playerOne.score, playerTwo.score) {
-            return getTieScore(playerOne.score)
-        } else if isWinningScore(playerOne.score, playerTwo.score) {
-            return getWinningScore(playerOne.score, playerTwo.score)
+        if isTieScore(players) {
+            return getTieScore(players.playerOne)
+        } else if isWinningScore(players) {
+            return getWinningScore(players)
         } else {
-            return updateScore(playerOne.score, playerTwo.score)
+            return updateScore(players.playerOne.score, players.playerTwo.score)
         }
     }
 
-    private func isTieScore(_ score1: Int, _ score2: Int) -> Bool {
-        return score1 == score2
+    private func isTieScore(_ players: Players) -> Bool {
+        return players.playerOne.score == players.playerTwo.score
     }
     
-    private func isWinningScore(_ score1: Int, _ score2: Int) -> Bool {
-        return score1>=4 || score2>=4
+    private func isWinningScore(_ players: Players) -> Bool {
+        return players.playerOne.score>=4 || players.playerTwo.score>=4
     }
 
-    func getTieScore(_ score: Int) -> String {
-        switch score
+    func getTieScore(_ player: Player) -> String {
+        switch player.score
         {
         case 0:
            return "Love-All"
@@ -104,12 +101,14 @@ class TennisGame1: TennisGame {
     }
     
     
-    func getWinningScore(_ score1: Int, _ score2: Int) -> String {
+    func getWinningScore(_ players: Players) -> String {
+        let score1 = players.playerOne.score
+        let score2 = players.playerTwo.score
         var score = ""
         let minusResult = score1-score2
-        if minusResult==1 { score = "Advantage player1" }
-        else if minusResult  == -1 { score = "Advantage player2" }
-        else if minusResult>=2 { score = "Win for player1" }
+        if minusResult == 1 { score = "Advantage player1" }
+        else if minusResult == -1 { score = "Advantage player2" }
+        else if minusResult >= 2 { score = "Win for player1" }
         else { score = "Win for player2" }
         return score
 
