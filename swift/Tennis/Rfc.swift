@@ -131,7 +131,7 @@
 //    func isGoodToFlow(_ flowState: FlowState) -> Bool {
 //        <#code#>
 //    }
-//    
+//
 //    func goWithTheFlow() {
 //        <#code#>
 //    }
