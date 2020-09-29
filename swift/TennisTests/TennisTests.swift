@@ -109,7 +109,20 @@ extension TennisTests {
     }
     
     
-    func testSimpleXml(){
+//    func testSimpleXml(){
+//        let subject = XmlBuilder()
+//        let expected =
+//        "<names>" +
+//        "<name>" +
+//        "<first>Donnie</first>" +
+//        "<last>Duck</last>" +
+//        "</name>" +
+//        "</names>"
+//        let result = subject.buildXML(firstName: "Donnie", lastName: "Duck")
+//        XCTAssertEqual(expected, result)
+//    }
+    
+    func testBuilder() {
         let subject = XmlBuilder()
         let expected =
         "<names>" +
@@ -118,7 +131,11 @@ extension TennisTests {
         "<last>Duck</last>" +
         "</name>" +
         "</names>"
-        let result = subject.buildXML(firstName: "Donnie", lastName: "Duck")
+        
+        let result = subject.build()
+            .withFirstName(firstName: "Donnie")
+            .withLastname(lastName: "Duck")
+            .toString()
         XCTAssertEqual(expected, result)
     }
     

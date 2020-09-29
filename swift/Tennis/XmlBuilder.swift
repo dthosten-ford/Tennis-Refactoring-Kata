@@ -10,48 +10,37 @@ import Foundation
 
 class XmlBuilder {
     let document: XMLDocument = XMLDocument()
-    
+    let nestedNode = XMLElement(name: "name")
+
     func build() -> XmlBuilder {
         let root = XMLElement(name: "names")
+        root.addChild(nestedNode)
         document.setRootElement(root)
         return self
     }
     
-    func withLastname(lastName: String, nameNode: XMLElement) -> XmlBuilder {
+    func withLastname(lastName: String) -> XmlBuilder {
         let lastNameNode = XMLElement(name: "last", stringValue: lastName)
-        nameNode.addChild(lastNameNode)
+        nestedNode.addChild(lastNameNode)
         return self
     }
     
-    func withFirstName(firstName: String, nameNode: XMLElement) -> XmlBuilder {
+    func withFirstName(firstName: String) -> XmlBuilder {
         let firstNameNode = XMLElement(name: "first", stringValue: firstName)
-        nameNode.addChild(firstNameNode)
+        nestedNode.addChild(firstNameNode)
+        return self
+    }
+    
+    func nodeBuilder(nodeName: String, value: String) -> XmlBuilder {
+        let node = XMLElement(name: nodeName, stringValue: value)
+        nestedNode.addChild(node)
         return self
     }
     
     
-    func buildXML(firstName: String, lastName: String) -> String {
-        //create a new builder
-        //build
-//        .withHeader()
-//            .withName(firstName)
-//            .withLastName()
-//            .withAttribute()
-        
-//        let firstNameNode = XMLElement(name: "first", stringValue: firstName)
-        //let lastNameNode = XMLElement(name: "last", stringValue: lastName)
-        
-        let root = XMLElement(name: "names")
-        let nestedNode = XMLElement(name: "name")
-        
-        root.addChild(nestedNode)
-//        nestedNode.addChild(firstNameNode)
-       // nestedNode.addChild(lastNameNode)
-        withFirstName(firstName: firstName, nameNode: nestedNode)
-        withLastname(lastName: lastName, nameNode: nestedNode)
-              
-        let document = XMLDocument(rootElement: root)
+     func toString() -> String {
         let xmlData = document.xmlData()
         return String(data: xmlData, encoding: .utf8) ?? ""
     }
+    
 }
