@@ -10,6 +10,7 @@
 		2326261425195331007A07F6 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261325195331007A07F6 /* Builder.swift */; platformFilter = maccatalyst; };
 		2326261825195474007A07F6 /* BuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261725195474007A07F6 /* BuilderTests.swift */; platformFilter = maccatalyst; };
 		2326261D2519854C007A07F6 /* XmlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261C2519854C007A07F6 /* XmlBuilder.swift */; };
+		2383231A251F7A2B005492D8 /* Rfc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23832319251F7A2B005492D8 /* Rfc.swift */; };
 		520065DE1F8972C5006EDBDF /* TennisGame2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520065DD1F8972C5006EDBDF /* TennisGame2.swift */; };
 		520065E01F897A01006EDBDF /* TennisGame3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520065DF1F897A01006EDBDF /* TennisGame3.swift */; };
 		52EF22791F892FF600CAD019 /* TennisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF22781F892FF600CAD019 /* TennisTests.swift */; };
@@ -21,6 +22,7 @@
 		2326261325195331007A07F6 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		2326261725195474007A07F6 /* BuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderTests.swift; sourceTree = "<group>"; };
 		2326261C2519854C007A07F6 /* XmlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XmlBuilder.swift; sourceTree = "<group>"; };
+		23832319251F7A2B005492D8 /* Rfc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rfc.swift; sourceTree = "<group>"; };
 		520065DD1F8972C5006EDBDF /* TennisGame2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisGame2.swift; sourceTree = "<group>"; };
 		520065DF1F897A01006EDBDF /* TennisGame3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisGame3.swift; sourceTree = "<group>"; };
 		52EF22751F892FF600CAD019 /* TennisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TennisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +79,7 @@
 				52EF227F1F89307F00CAD019 /* TennisGame.swift */,
 				2326261325195331007A07F6 /* Builder.swift */,
 				2326261C2519854C007A07F6 /* XmlBuilder.swift */,
+				23832319251F7A2B005492D8 /* Rfc.swift */,
 			);
 			path = Tennis;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				52EF22791F892FF600CAD019 /* TennisTests.swift in Sources */,
 				2326261825195474007A07F6 /* BuilderTests.swift in Sources */,
 				2326261425195331007A07F6 /* Builder.swift in Sources */,
+				2383231A251F7A2B005492D8 /* Rfc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
