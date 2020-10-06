@@ -9,14 +9,32 @@ import Foundation
 
 
 class XmlBuilder {
-    let document: XMLDocument = XMLDocument()
-    let nestedNode = XMLElement(name: "name")
+    private let document: XMLDocument = XMLDocument()
+    private let nestedNode = XMLElement(name: "name")
+    private let root: XMLElement
+    private var nodeArray: [XMLElement]
+    
+    init(_ value: String = "") {
+        root = XMLElement(name: value)
+        document.setRootElement(root)
+        nodeArray = [root]
+    }
+    
+    func toXml() -> String {
+        return toString()
+    }
 
     func build() -> XmlBuilder {
         let root = XMLElement(name: "names")
         root.addChild(nestedNode)
         document.setRootElement(root)
         return self
+    }
+    
+    func addChild(_ child: String) {
+        let child = XMLElement(name: child)
+        nodeArray.last?.addChild(child)
+        nodeArray.append(child)
     }
     
     func withLastname(lastName: String) -> XmlBuilder {
@@ -36,7 +54,6 @@ class XmlBuilder {
         nestedNode.addChild(node)
         return self
     }
-    
     
      func toString() -> String {
         let xmlData = document.xmlData()
