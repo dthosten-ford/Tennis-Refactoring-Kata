@@ -31,12 +31,6 @@ class XmlBuilder {
         return self
     }
     
-    func addChild(_ child: String) {
-        let child = XMLElement(name: child)
-        nodeArray.last?.addChild(child)
-        nodeArray.append(child)
-    }
-    
     func withLastname(lastName: String) -> XmlBuilder {
         let lastNameNode = XMLElement(name: "last", stringValue: lastName)
         nestedNode.addChild(lastNameNode)
@@ -60,4 +54,31 @@ class XmlBuilder {
         return String(data: xmlData, encoding: .utf8) ?? ""
     }
     
+     func currentNode() -> XMLElement {
+        guard let currentNode = nodeArray.last else { return XMLElement()}
+        return currentNode
+    }
+    
+    func parentNode() -> XMLElement {
+        //TODO: check for Array out of boundry.
+       let parentNode = nodeArray[nodeArray.count - 2 ]
+        
+       return parentNode
+   }
+    
+    func addChild(_ child: String) -> XmlBuilder {
+        let child = XMLElement(name: child)
+        currentNode().addChild(child)
+        nodeArray.append(child)
+        
+        return self
+    }
+    
+    func addSibling(_ name: String) -> XmlBuilder {
+        let sibling = XMLElement(name: name)
+     
+        parentNode().addChild(sibling)
+        
+        return self
+    }
 }

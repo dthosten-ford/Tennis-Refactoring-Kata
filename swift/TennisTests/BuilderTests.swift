@@ -46,7 +46,7 @@ class BuilderTests: XCTestCase {
         let subject = XmlBuilder("flavors")
         let expected = "<flavors><flavor></flavor></flavors>"
         
-        subject.addChild("flavor")
+        _ = subject.addChild("flavor")
         let actual = subject.toXml()
         
         XCTAssertEqual(expected, actual)
@@ -56,8 +56,8 @@ class BuilderTests: XCTestCase {
         let subject = XmlBuilder("flavors")
         let expected = "<flavors><flavor><requirements></requirements></flavor></flavors>"
         
-        subject.addChild("flavor")
-        subject.addChild("requirements")
+        _ = subject.addChild("flavor")
+            .addChild("requirements")
         let actual = subject.toXml()
         
         XCTAssertEqual(expected, actual)
@@ -66,12 +66,21 @@ class BuilderTests: XCTestCase {
     func testNestedAddChildRequirement() {
         let expected = "<flavors><flavor><requirements><requirement></requirement></requirements></flavor></flavors>"
         let subject = XmlBuilder("flavors")
-//        .addChild("flavor")
-//        .addChild("requirements")
-//        .addChild("requirement")
+        .addChild("flavor")
+        .addChild("requirements")
+        .addChild("requirement")
 
         let actual = subject.toXml()
         
+        XCTAssertEqual(expected, actual)
+    }
+    
+    func testAddSibling() {
+        let expected = "<flavors><flavor1></flavor1><flavor2></flavor2></flavors>"
+        let subject = XmlBuilder("flavors")
+            .addChild("flavor1")
+            .addSibling("flavor2")
+        let actual = subject.toXml()
         XCTAssertEqual(expected, actual)
     }
 
