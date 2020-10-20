@@ -177,10 +177,10 @@ extension TennisTests {
     
     func testNestedAddChildRequirement() {
         let expected = "<flavors><flavor><requirements><requirement></requirement></requirements></flavor></flavors>"
-            let subject = XmlBuilder("flavors")
-            .addChild("flavor")
-            .addChild("requirements")
-            .addChild("requirement")
+        let subject = XmlBuilder("flavors")
+        .addChild("flavor")
+        .addChild("requirements")
+        .addChild("requirement")
 
         let actual = subject.toXml()
         
