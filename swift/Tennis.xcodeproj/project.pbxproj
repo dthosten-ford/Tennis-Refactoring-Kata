@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2326261425195331007A07F6 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261325195331007A07F6 /* Builder.swift */; platformFilter = maccatalyst; };
 		2326261D2519854C007A07F6 /* XmlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2326261C2519854C007A07F6 /* XmlBuilder.swift */; };
+		23346C272549B88B004701C5 /* CalculatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23346C262549B88B004701C5 /* CalculatorTest.swift */; };
+		23346C2A2549B8F2004701C5 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23346C292549B8F2004701C5 /* Calculator.swift */; };
 		235FAD41253F2395002E7D4D /* BuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235FAD40253F2395002E7D4D /* BuilderTests.swift */; };
 		236BF5C225238449009250E4 /* SimpleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236BF5C125238449009250E4 /* SimpleBuilder.swift */; };
 		2383231A251F7A2B005492D8 /* Rfc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23832319251F7A2B005492D8 /* Rfc.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		2326261325195331007A07F6 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		2326261C2519854C007A07F6 /* XmlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XmlBuilder.swift; sourceTree = "<group>"; };
+		23346C262549B88B004701C5 /* CalculatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTest.swift; sourceTree = "<group>"; };
+		23346C292549B8F2004701C5 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
 		235FAD40253F2395002E7D4D /* BuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderTests.swift; sourceTree = "<group>"; };
 		236BF5C125238449009250E4 /* SimpleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBuilder.swift; sourceTree = "<group>"; };
 		23832319251F7A2B005492D8 /* Rfc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rfc.swift; sourceTree = "<group>"; };
@@ -48,6 +52,8 @@
 		52EF226A1F892FC100CAD019 = {
 			isa = PBXGroup;
 			children = (
+				23346C292549B8F2004701C5 /* Calculator.swift */,
+				23346C262549B88B004701C5 /* CalculatorTest.swift */,
 				52EF227E1F89301400CAD019 /* Tennis */,
 				52EF22771F892FF600CAD019 /* TennisTests */,
 				52EF22761F892FF600CAD019 /* Products */,
@@ -159,10 +165,12 @@
 				520065DE1F8972C5006EDBDF /* TennisGame2.swift in Sources */,
 				2326261D2519854C007A07F6 /* XmlBuilder.swift in Sources */,
 				52EF22801F89307F00CAD019 /* TennisGame.swift in Sources */,
+				23346C2A2549B8F2004701C5 /* Calculator.swift in Sources */,
 				236BF5C225238449009250E4 /* SimpleBuilder.swift in Sources */,
 				52EF22791F892FF600CAD019 /* TennisTests.swift in Sources */,
 				235FAD41253F2395002E7D4D /* BuilderTests.swift in Sources */,
 				2326261425195331007A07F6 /* Builder.swift in Sources */,
+				23346C272549B88B004701C5 /* CalculatorTest.swift in Sources */,
 				2383231A251F7A2B005492D8 /* Rfc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
